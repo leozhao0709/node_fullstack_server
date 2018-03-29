@@ -2,6 +2,8 @@ export let environment: {
     PORT: string;
     MONGODB_URI: string;
     AUTH_SECRET: string;
+    GOOGLE_CLIENT_ID: string;
+    GOOGLE_CLIENT_SECRET: string;
 } = require('../config/env.json');
 
 if (process.env.NODE_ENV === 'prod') {
