@@ -7,8 +7,10 @@ import { environment } from '../environment/environment';
 export interface IUser extends mongoose.Document {
     _id: string;
     email: string;
-    password: string;
-    tokens: { access: string, token: string }[];
+    password?: string;
+    googleId?: string;
+    tokens: { access: string, token: string, expire?: Date }[];
+    source: string;
     generateAuthToken: () => Promise<string>;
     removeToken: (token: string) => Promise<void>;
 }
@@ -16,6 +18,11 @@ export interface IUser extends mongoose.Document {
 export interface IUserModel extends mongoose.Model<IUser> {
     findByToken: (token: string) => Promise<IUser>;
     findByCrediential: (email: string, password: string) => Promise<IUser>;
+}
+
+export enum UserSource {
+    SIGNUP = 'signUp',
+    GOOGLE_OAUTH = 'googleOauth'
 }
 
 const userSchema = new mongoose.Schema({
@@ -32,8 +39,12 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, 'password is required'],
+        required: [passwordRequiredValidator, 'password is required'],
         minlength: 6
+    },
+    googleId: {
+        type: String,
+        required: googleIdRequiredValidator
     },
     tokens: [{
         access: {
@@ -43,16 +54,35 @@ const userSchema = new mongoose.Schema({
         token: {
             type: String,
             required: true
+        },
+        expired: {
+            type: Date,
+            default: () => Date.now() + 7 * 24 * 3600 * 1000
         }
-    }]
+    }],
+    source: {
+        type: String,
+        required: true,
+        trim: true,
+        validate: (source: string) => Object.values(UserSource).includes(source),
+    }
 });
+
+function passwordRequiredValidator(this: IUser) {
+    return this.source === UserSource.SIGNUP;
+}
+
+function googleIdRequiredValidator(this: IUser) {
+    return this.source === UserSource.GOOGLE_OAUTH;
+}
 
 userSchema.pre('save', function (this: IUser, next: mongoose.HookNextFunction) {
     const user: IUser = this;
-    if (user.isModified('password')) {
+
+    if (user.password && user.isModified('password')) {
         bcrypt.genSalt(10)
             .then(salt => {
-                return bcrypt.hash(user.password, salt);
+                return bcrypt.hash(user.password!, salt);
             })
             .then(hash => {
                 user.password = hash;
@@ -109,7 +139,10 @@ userSchema.statics.findByToken = function (token: string) {
     return user.findOne({
         _id,
         'tokens.token': token,
-        'tokens.access': access
+        'tokens.access': access,
+        'tokens.expired': {
+            $gte: Date.now()
+        }
     });
 };
 
@@ -121,7 +154,7 @@ userSchema.statics.findByCrediential = function (email: string, password: string
             return Promise.reject(notFoundMessage);
         }
 
-        return bcrypt.compare(password, doc.password)
+        return bcrypt.compare(password, doc.password!)
             .then(result => {
                 if (result) {
                     return Promise.resolve(doc);

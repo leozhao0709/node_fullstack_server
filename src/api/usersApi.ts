@@ -5,9 +5,9 @@ import { auth } from '../middleware/auth';
 export const usersApi = Router();
 
 usersApi.post('/', (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, source } = req.body;
 
-    const user = new User({ email, password });
+    const user = new User({ email, password, source });
 
     user.generateAuthToken()
         .then(token => {
@@ -19,7 +19,7 @@ usersApi.post('/', (req, res) => {
 });
 
 usersApi.get('/me', auth, (req, res) => {
-    res.send(req.params.user);
+    res.send(req.user);
 });
 
 usersApi.post('/login', (req, res) => {
@@ -37,7 +37,7 @@ usersApi.post('/login', (req, res) => {
 });
 
 usersApi.delete('/me/token', auth, (req, res) => {
-    (<IUser>req.params.user).removeToken(req.params.token).then(() => {
+    (<IUser>req.user!).removeToken(req.params.token).then(() => {
         res.status(200).send();
     }).catch(_ => {
         res.status(400).send();

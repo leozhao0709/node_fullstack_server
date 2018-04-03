@@ -10,8 +10,8 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
                 throw 'user not found';
             }
 
-            req.params.user = user;
-            req.params.token = token;
+            req.user = user;
+            req.token = token;
 
             next();
         })
