@@ -5,6 +5,7 @@ export let environment: {
     GOOGLE_CLIENT_ID: string;
     GOOGLE_CLIENT_SECRET: string;
     COOKIE_KEY: string;
+    GOOGLE_CALL_BACK_URL: string;
 } = require('../config/env.json');
 
 if (process.env.NODE_ENV === 'prod') {
