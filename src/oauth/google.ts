@@ -25,7 +25,8 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID || environment.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || environment.GOOGLE_CLIENT_SECRET,
     callbackURL: '/auth/google/callback',
-}, (_0, _1, profile, done) => {
+    passReqToCallback: true
+}, (_0, _1, _2, profile, done) => {
     const { id, email } = profile;
 
     User.findOne({ googleId: id })
