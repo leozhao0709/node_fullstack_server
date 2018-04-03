@@ -14,6 +14,8 @@ if (process.env.NODE_ENV === 'prod') {
         ...environment,
         ...prodEnv
     };
+    // tslint:disable-next-line:no-console
+    console.log(environment);
 } else if (process.env.NODE_ENV === 'test') {
     const testEnv = require('../config/env.test.json');
     environment = {
