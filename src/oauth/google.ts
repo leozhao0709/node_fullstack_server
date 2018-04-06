@@ -54,8 +54,8 @@ googleOauth.get('/', passport.authenticate('google', {
 googleOauth.get('/callback', passport.authenticate('google'));
 
 googleOauth.get('/current_user', (req, res) => {
-    // res.send(req.session);
-    res.send(req.user);
+    res.send(req.session);
+    // res.send(req.user);
 });
 
 googleOauth.get('/logout', (req, res) => {
