@@ -3,3 +3,9 @@ declare module Express {
         token?: string;
     }
 }
+
+declare module global {
+    interface StrategyOptionsWithRequest {
+        proxy?: boolean;
+    }
+}

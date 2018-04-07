@@ -24,9 +24,9 @@ passport.deserializeUser((id, done) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID || environment.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || environment.GOOGLE_CLIENT_SECRET,
-    callbackURL: environment.GOOGLE_CALL_BACK_URL,
-    passReqToCallback: true
-}, (_0, _1, _2, profile, done) => {
+    callbackURL: '/auth/google/callback',
+
+}, (_0, _1, profile, done) => {
     const { id, email } = profile;
 
     User.findOne({ googleId: id })
@@ -51,14 +51,22 @@ googleOauth.get('/', passport.authenticate('google', {
     scope: ['profile', 'email']
 }));
 
-googleOauth.get('/callback', passport.authenticate('google'));
+googleOauth.get('/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+        if (req.user) {
+            return res.redirect('/');
+        }
+        res.redirect('/');
+    }
+);
 
 googleOauth.get('/current_user', (req, res) => {
-    res.send(req.session);
-    // res.send(req.user);
+    // res.send(req.session);
+    res.send(req.user);
 });
 
 googleOauth.get('/logout', (req, res) => {
     req.logout();
-    res.send(req.user);
+    res.redirect('/');
 });
