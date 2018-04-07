@@ -3,7 +3,3 @@ declare module Express {
         token?: string;
     }
 }
-
-export interface StrategyOptions {
-    proxy?: boolean;
-}
