@@ -65,7 +65,7 @@ const copyConfig = () => {
 };
 
 const buildAllTypeScript = () => {
-    gulp.src(["./src/**/*.ts", "!./node_modules/**/*.ts"])
+    gulp.src(["./src/**/*.ts", "!./node_modules/**/*.ts", "!./src/client/**/*.ts"])
         .pipe(plumber())
         .pipe(pipelog("compile typescript file: <%= file.relative %>"))
         .pipe(

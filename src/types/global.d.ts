@@ -4,8 +4,6 @@ declare module Express {
     }
 }
 
-declare module global {
-    interface StrategyOptionsWithRequest {
-        proxy?: boolean;
-    }
+export interface StrategyOptions {
+    proxy?: boolean;
 }
