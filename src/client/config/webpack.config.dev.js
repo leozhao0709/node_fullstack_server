@@ -155,7 +155,7 @@ module.exports = {
             test: /\.(ts|tsx)$/,
             include: [
               paths.appSrc,
-              // paths.appNodeModules
+              paths.appNodeModules
             ],
             use: [
               {
