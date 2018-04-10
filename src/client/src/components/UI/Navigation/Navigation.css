@@ -1,0 +1,22 @@
+.Navigation {
+  background-color: #EA7374;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  .Navigation .logo {
+    color: white;
+    font-size: 4rem;
+    padding-left: 1rem;
+    margin-right: auto; }
+    .Navigation .logo a {
+      text-decoration: none;
+      color: inherit; }
+  .Navigation .items {
+    align-self: stretch; }
+  .Navigation .auth {
+    color: white;
+    font-size: 2rem;
+    padding: 1.5rem; }
+    .Navigation .auth a {
+      text-decoration: none;
+      color: inherit; }

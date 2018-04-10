@@ -1,0 +1,7 @@
+.NavigationItems {
+  height: 100%; }
+  .NavigationItems ul {
+    height: 100%;
+    list-style: none;
+    display: flex;
+    align-items: center; }
