@@ -6,6 +6,7 @@ const path = require("path");
 const ts = require('gulp-typescript');
 const gutil = require("gulp-util");
 const notify = require("gulp-notify");
+const rename = require("gulp-rename");
 
 
 gulp.task("default", [
@@ -31,11 +32,12 @@ const cleanFolder = (folderPath) => {
 };
 
 const copyPackageJson = () => {
-    gulp.src(["package.json"])
+    gulp.src(["package.prod.json"])
         .pipe(plumber())
         .on('end', () => {
-            gutil.log(gutil.colors.yellow(`copy package.json now`))
+            gutil.log(gutil.colors.yellow(`copy package.prod.json now`))
         })
+        .pipe(rename('package.json'))
         .pipe(
             gulp.dest("./dist")
         )
