@@ -17,7 +17,7 @@
     "clean": "rm -r dist && echo '\\033[0;33m remove dist folder \\033[0m' || exit 0",
     "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
     "heroku-postbuild": "npm test && npm run build",
-    "deploy": "deployBranch=deploy-`\"\"date +%Y-%m-%d-%H-%M\"\"`&& git checkout master -b $deployBranch && sed -i .bak -e 1d .gitignore && cp package.prod.json dist/package.json && npm run build &&  git add . && git commit -m 'build deploy folder' && git push -u origin HEAD && git push heroku `git subtree split --prefix dist $deployBranch`:master --force && git checkout master"
+    "deploy": "deployBranch=deploy-`\"\"date +%Y-%m-%d-%H-%M\"\"`&& git checkout master -b $deployBranch && sed -i .bak -e 1d .gitignore && npm run build && cp package.prod.json dist/package.json &&  git add . && git commit -m 'build deploy folder' && git push -u origin HEAD && git push heroku `git subtree split --prefix dist $deployBranch`:master --force && git checkout master"
   },
   "nodemonConfig": {
     "watch": [
