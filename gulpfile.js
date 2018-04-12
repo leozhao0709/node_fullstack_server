@@ -7,11 +7,6 @@ const ts = require('gulp-typescript');
 const gutil = require("gulp-util");
 const notify = require("gulp-notify");
 const rename = require("gulp-rename");
-const gulpBrowserify = require('gulp-browserify');
-var browserify = require("browserify");
-var source = require('vinyl-source-stream');
-var tsify = require("tsify");
-
 
 
 gulp.task("default", [
@@ -72,14 +67,11 @@ const copyConfig = () => {
 };
 
 const buildAllTypeScript = () => {
-    gulp.src(["./src/**/**.ts", "!./node_modules/**/*.ts", "!./src/client/**/*.ts"])
+    gulp.src(["./src/**/*.ts", "!./node_modules/**/*.ts"])
         .pipe(plumber())
         .pipe(pipelog("compile typescript file: <%= file.relative %>"))
         .pipe(
             tsProject()
-        )
-        .pipe(
-            gulpBrowserify()
         )
         .pipe(
             gulp.dest("./dist/")
@@ -90,46 +82,10 @@ const buildAllTypeScript = () => {
         }));
 };
 
-const browserifyResult = () => {
-    // gulp.src('./dist/app.js')
-    //     .pipe(browserify())
-    //     .pipe(
-    //         gulp.dest('./dist/build')
-    //     );
-
-    return browserify({
-        basedir: '.',
-        debug: true,
-        entries: ['src/app.ts'],
-        cache: {},
-        packageCache: {}
-    })
-        .plugin(tsify)
-        .bundle()
-        .pipe(source('bundle.js'))
-        .pipe(gulp.dest("dist"));
-};
-
-// gulp.task('browserify', () => {
-
-//     return browserify({
-//         basedir: '.',
-//         debug: true,
-//         entries: ['src/app.ts'],
-//         cache: {},
-//         packageCache: {}
-//     })
-//         .plugin(tsify)
-//         .bundle()
-//         .pipe(source('bundle.js'))
-//         .pipe(gulp.dest("dist"));
-// })
-
 gulp.task("build", () => {
     cleanFolder("./dist");
     copyPackageJson();
     copyConfig();
     copyAssets();
-    // buildAllTypeScript();
-    browserifyResult();
+    buildAllTypeScript();
 });
