@@ -9,6 +9,7 @@ export interface IUser extends mongoose.Document {
     email: string;
     password?: string;
     googleId?: string;
+    credits?: number;
     tokens: { access: string, token: string, expire?: Date }[];
     source: string;
     generateAuthToken: () => Promise<string>;
@@ -41,6 +42,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [passwordRequiredValidator, 'password is required'],
         minlength: 6
+    },
+    credits: {
+        type: Number,
+        default: 0
     },
     googleId: {
         type: String,
@@ -98,9 +103,9 @@ userSchema.pre('save', function (this: IUser, next: mongoose.HookNextFunction) {
 
 userSchema.methods.toJSON = function () {
     const user: IUser = this;
-    const { _id, email } = user;
+    const { _id, email, credits } = user;
 
-    return { _id, email };
+    return { _id, email, credits };
 };
 
 userSchema.methods.removeToken = function (token: string) {

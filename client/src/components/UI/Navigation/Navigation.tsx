@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import NavigationItems from './NavigationItems/NavigationItems';
 
 interface NavigationProps {
-    user?: { _id: string, email: string } | null;
+    user?: { _id: string, email: string, credits: number } | null;
 }
 
 const Navigation: React.SFC<NavigationProps> = (props: NavigationProps) => {
@@ -35,7 +35,9 @@ const Navigation: React.SFC<NavigationProps> = (props: NavigationProps) => {
                 </Link>
             </div>
             <div className={styles.items} >
-                <NavigationItems />
+                <NavigationItems
+                    userCredits={props.user ? props.user.credits : 0}
+                />
             </div>
             <div className={styles.auth} >
                 {loggedInOut}

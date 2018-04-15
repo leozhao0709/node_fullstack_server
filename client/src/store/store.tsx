@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import AuthReducer, { AuthState } from './reducers/authReducer';
+import AuthReducer, { AuthState } from './reducers/userReducer';
 import createSagaMiddleware from 'redux-saga';
 import { watchAuthSaga } from './sagas';
 

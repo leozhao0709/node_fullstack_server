@@ -34,11 +34,14 @@ passport.use(new GoogleStrategy({
             if (!exisingUser) {
                 const user = new User({ email, googleId: id, source: UserSource.GOOGLE_OAUTH });
                 user.save()
-                    .then(doc => done(null, doc))
+                    .then(doc => {
+                        done(null, doc);
+                    })
                     .catch(err => done(err));
+            } else {
+                done(null, exisingUser);
             }
 
-            done(null, exisingUser);
         })
         .catch(err => {
             done(err);

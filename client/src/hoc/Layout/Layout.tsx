@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Navigation from '../../components/UI/Navigation/Navigation';
 import { Dispatch, connect } from 'react-redux';
-import { AuthActions } from '../../store/actions/authActions';
+import { userActions } from '../../store/actions/userActions';
 import { StoreState } from '../../store/store';
 import { withRouter } from 'react-router';
 
@@ -10,7 +10,7 @@ interface LayoutDispatchProps {
 }
 
 interface LayoutStateProps {
-    user?: { _id: string, email: string } | null;
+    user?: { _id: string, email: string, credits: number } | null;
 }
 
 class Layout extends React.Component<LayoutDispatchProps & LayoutStateProps, {}> {
@@ -37,7 +37,7 @@ const mapState = (storeState: StoreState): LayoutStateProps => {
 
 const mapDispatch = (dispatch: Dispatch<StoreState>): LayoutDispatchProps => {
     return {
-        fetchUser: () => dispatch(AuthActions.fetch_user())
+        fetchUser: () => dispatch(userActions.fetch_user())
     };
 };
 

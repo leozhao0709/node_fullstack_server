@@ -36,6 +36,7 @@
     "mongoose": "^5.0.14",
     "passport": "^0.4.0",
     "passport-google-oauth2": "^0.1.6",
+    "stripe": "^5.8.0",
     "validator": "^9.4.1"
   },
   "devDependencies": {
@@ -48,6 +49,7 @@
     "@types/mongoose": "^5.0.7",
     "@types/passport": "^0.4.3",
     "@types/passport-google-oauth2": "^0.1.2",
+    "@types/stripe": "^5.0.10",
     "@types/supertest": "^2.0.4",
     "@types/validator": "^9.4.0",
     "babel-loader": "^7.1.4",
