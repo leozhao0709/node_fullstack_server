@@ -4,15 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/dist/app.js",
     "install": "npm install --prefix client && npm install --prefix server",
     "test": "npm test --prefix client && npm test --prefix server",
     "client-build": "npm run build --prefix client",
     "server-build": "npm run build --prefix server",
     "build": "npm run server-build && npm run client-build",
-    "deploy": "npm install && git checkout master && npm test && deployBranch=deploy-`\"\"date +%Y-%m-%d-%H-%M\"\"`&& git checkout master -b $deployBranch && sed -i .bak -e 1d server/.gitignore && npm run build && cp server/package.prod.json server/dist/package.json &&  git add . && git commit -m 'build deploy folder' && git push -u origin HEAD && git subtree push --prefix server/dist heroku master || git push heroku `git subtree split --prefix server/dist $deployBranch`:master --force && git checkout master",
-    "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
-    "heroku-postbuild": "npm run build"
+    "deploy": "npm install && git checkout master && npm test && deployBranch=deploy-`\"\"date +%Y-%m-%d-%H-%M\"\"`&& git checkout master -b $deployBranch && sed -i .bak -e 1d server/.gitignore && npm run build && cp server/package.prod.json server/dist/package.json &&  git add . && git commit -m 'build deploy folder' && git push -u origin HEAD && git subtree push --prefix server/dist heroku master || git push heroku `git subtree split --prefix server/dist $deployBranch`:master --force && git checkout master"
   },
   "repository": {
     "type": "git",
