@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm-run-all -p start-client start-server",
+    "start-client": "npm start --prefix client",
+    "start-server": "npm start --prefix server",
     "install": "npm install --prefix client && npm install --prefix server",
     "test": "npm test --prefix client && npm test --prefix server",
     "client-build": "npm run build --prefix client",
@@ -20,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/leozhao0709/node_fullstack_server/issues"
   },
-  "homepage": "https://github.com/leozhao0709/node_fullstack_server#readme"
+  "homepage": "https://github.com/leozhao0709/node_fullstack_server#readme",
+  "devDependencies": {
+    "npm-run-all": "^4.1.2"
+  }
 }
