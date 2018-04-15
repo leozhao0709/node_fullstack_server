@@ -1,0 +1,27 @@
+.Navigation {
+  background-color: #EA7374;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  .Navigation a {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit; }
+    .Navigation a:not(.logoLink):hover {
+      background-color: #ec8081; }
+  .Navigation .logo {
+    color: white;
+    font-size: 4rem;
+    padding-left: 1rem;
+    margin-right: auto;
+    align-self: stretch; }
+  .Navigation .items {
+    align-self: stretch; }
+  .Navigation .auth {
+    color: white;
+    font-size: 2rem;
+    align-self: stretch; }
+    .Navigation .auth a {
+      padding: 2rem; }
