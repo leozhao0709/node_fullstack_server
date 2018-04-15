@@ -27,6 +27,10 @@ app.use('/auth/google', googleOauth);
 // app.use('/users', usersApi);
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(__dirname + '/public'));
+
+    app.get('*', (_, res) => {
+        res.sendFile(__dirname + '/public/index.html');
+    });
 }
 
 app.listen(port, () => {
