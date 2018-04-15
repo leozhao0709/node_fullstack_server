@@ -25,7 +25,7 @@ app.use('/auth/google', googleOauth);
 
 // api
 // app.use('/users', usersApi);
-if (environment.env === 'production') {
+if (process.env.NODE_ENV === 'production') {
     app.use(express.static(__dirname + '/public'));
 }
 
