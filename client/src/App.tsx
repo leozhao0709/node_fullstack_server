@@ -18,7 +18,7 @@ interface AppStateProps {
 class App extends React.Component<AppDispatchProps & AppStateProps, {}> {
 
   render() {
-    let homeRoute = <Route path="/" exact componenet={Landing} />;
+    let homeRoute = <Route path="/" exact component={Landing} />;
 
     if (this.props.user) {
       homeRoute = <Redirect from="/" to="/dashboard" />;
