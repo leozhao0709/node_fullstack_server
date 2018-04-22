@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { User, IUser } from '../models/User';
-import { auth } from '../middleware/auth';
+import { authRequire } from '../middleware/authRequire';
 
 export const usersApi = Router();
 
@@ -18,7 +18,7 @@ usersApi.post('/', (req, res) => {
         });
 });
 
-usersApi.get('/me', auth, (req, res) => {
+usersApi.get('/me', authRequire, (req, res) => {
     res.send(req.user);
 });
 
@@ -36,7 +36,7 @@ usersApi.post('/login', (req, res) => {
         });
 });
 
-usersApi.delete('/me/token', auth, (req, res) => {
+usersApi.delete('/me/token', authRequire, (req, res) => {
     (<IUser>req.user!).removeToken(req.params.token).then(() => {
         res.status(200).send();
     }).catch(_ => {

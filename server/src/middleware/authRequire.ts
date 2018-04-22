@@ -1,7 +1,7 @@
 import { User } from '../models/User';
 import { NextFunction, Request, Response } from 'express';
 
-export const auth = (req: Request, res: Response, next: NextFunction) => {
+export const authRequire = (req: Request, res: Response, next: NextFunction) => {
     if (req.user) {
         next();
     } else {

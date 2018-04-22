@@ -1,6 +1,9 @@
 import * as React from 'react';
+import * as styles from './Dashboard.css';
+import AddButton from '../../components/UI/Button/AddButton';
+import { RouterProps } from 'react-router';
 
-interface DashboardProps {
+interface DashboardProps extends RouterProps {
 }
 
 interface DashboardState {
@@ -8,16 +11,21 @@ interface DashboardState {
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
 
-    static defaultProps: DashboardProps = {
-    };
-
     state: DashboardState = {
     };
 
+    addButtonClickHandler = () => {
+        this.props.history.push('/survey');
+    }
+
     render() {
         return (
-            <div>
+            <div className={styles.dashboard} >
                 <h1>Dashboard...</h1>
+                <AddButton
+                    className={styles.addButton}
+                    onClick={this.addButtonClickHandler}
+                />
             </div>
         );
     }

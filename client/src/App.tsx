@@ -28,7 +28,7 @@ class App extends React.Component<AppDispatchProps & AppStateProps, {}> {
       <BrowserRouter>
         <Layout>
           <Switch>
-            <Route path="/surveys" exact component={Survey} />
+            <Route path="/survey" exact component={Survey} />
             <Route path="/dashboard" exact component={Dashboard} />
             {homeRoute}
             <Route render={() => <h1>Not found</h1>} />

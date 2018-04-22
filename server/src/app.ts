@@ -5,6 +5,7 @@ import { environment } from './environment/environment';
 import { googleOauth } from './oauth/google';
 import * as passport from 'passport';
 import { paymentApi } from './api/paymentApi';
+import { surveyApi } from './api/surveyApi';
 import cookieSession = require('cookie-session');
 
 const port = environment.PORT;
@@ -26,6 +27,7 @@ app.use('/auth/google', googleOauth);
 
 // api
 app.use('/payment', paymentApi);
+app.use('/surveys', surveyApi);
 
 // app.use('/users', usersApi);
 if (process.env.NODE_ENV === 'production') {

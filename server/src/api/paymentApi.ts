@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import * as Stripe from 'stripe';
 import { environment } from '../environment/environment';
-import { auth } from '../middleware/auth';
+import { authRequire } from '../middleware/authRequire';
 
 export const paymentApi = Router();
 
 const stripe = new Stripe(environment.STRIPE_SECRET);
 
-paymentApi.post('/paycredits', auth, (req, res) => {
+paymentApi.post('/paycredits', authRequire, (req, res) => {
     if (!req.body.id) {
         res.status(400).send();
     }
