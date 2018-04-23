@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from './Dashboard.css';
-import AddButton from '../../components/UI/Button/AddButton';
 import { RouterProps } from 'react-router';
+import { AddButton } from 'my-react-story';
 
 interface DashboardProps extends RouterProps {
 }
@@ -10,7 +10,6 @@ interface DashboardState {
 }
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
-
     state: DashboardState = {
     };
 
