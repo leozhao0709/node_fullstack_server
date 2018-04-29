@@ -3,28 +3,22 @@ import * as styles from './Dashboard.css';
 import { RouterProps } from 'react-router';
 import { AddButton } from 'my-react-story';
 
-interface DashboardProps extends RouterProps {
-}
+interface DashboardProps extends RouterProps {}
 
-interface DashboardState {
-}
+interface DashboardState {}
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
-    state: DashboardState = {
-    };
+    state: DashboardState = {};
 
     addButtonClickHandler = () => {
         this.props.history.push('/survey');
-    }
+    };
 
     render() {
         return (
-            <div className={styles.dashboard} >
+            <div className={styles.dashboard}>
                 <h1>Dashboard...</h1>
-                <AddButton
-                    className={styles.addButton}
-                    onClick={this.addButtonClickHandler}
-                />
+                <AddButton className={styles.addButton} click={this.addButtonClickHandler} />
             </div>
         );
     }

@@ -1,23 +1,20 @@
 import * as React from 'react';
+import { SurveyForm } from '../../components/SurveyForm/SurveyForm';
 
-interface SurveyProps {
-}
+interface SurveyProps {}
 
-interface SurveyState {
-}
+interface SurveyState {}
 
 class Survey extends React.Component<SurveyProps, SurveyState> {
+    static defaultProps: SurveyProps = {};
 
-    static defaultProps: SurveyProps = {
-    };
-
-    state: SurveyState = {
-    };
+    state: SurveyState = {};
 
     render() {
         return (
             <div>
                 <h1>New Survey...</h1>
+                <SurveyForm />
             </div>
         );
     }
