@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { SurveyForm } from '../../components/SurveyForm/SurveyForm';
+import * as styles from './Survey.css';
 
 interface SurveyProps {}
 
@@ -12,8 +13,7 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
 
     render() {
         return (
-            <div>
-                <h1>New Survey...</h1>
+            <div className={styles.survey}>
                 <SurveyForm />
             </div>
         );

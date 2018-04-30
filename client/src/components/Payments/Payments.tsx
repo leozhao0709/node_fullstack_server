@@ -3,31 +3,29 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { StoreState } from '../../store/store';
 import StripeCheckout from 'react-stripe-checkout';
-import * as styles from './Payments.css';
 import { userActions } from '../../store/actions/userActions';
+import { Button } from 'my-react-story';
 
-interface PaymentsStateProps {
-}
+interface PaymentsStateProps {}
 
 interface PaymentsDispatchProps {
     payCredits: (token) => void;
 }
 
 class Payments extends React.Component<PaymentsStateProps & PaymentsDispatchProps> {
-
     render() {
         return (
-            <div className={styles.payments} >
+            <div>
                 <StripeCheckout
                     name="Emaily"
                     description="$5 for 5 email credits"
                     amount={500}
-                    token={(token) => {
+                    token={token => {
                         this.props.payCredits(token);
                     }}
                     stripeKey={process.env.REACT_APP_STRIPE_KEY!}
                 >
-                    <button className={styles.btn} >Add Credits</button>
+                    <Button text="Add Credits" />
                 </StripeCheckout>
             </div>
         );
@@ -36,7 +34,7 @@ class Payments extends React.Component<PaymentsStateProps & PaymentsDispatchProp
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreState>): PaymentsDispatchProps => {
     return {
-        payCredits: (token) => dispatch(userActions.add_credits(token))
+        payCredits: token => dispatch(userActions.add_credits(token))
     };
 };
 

@@ -18,7 +18,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
         return (
             <div className={styles.dashboard}>
                 <h1>Dashboard...</h1>
-                <AddButton className={styles.addButton} click={this.addButtonClickHandler} />
+                <AddButton className={styles.addButton} onClick={this.addButtonClickHandler} />
             </div>
         );
     }
