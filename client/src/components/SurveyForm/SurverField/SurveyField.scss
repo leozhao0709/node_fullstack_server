@@ -5,7 +5,7 @@
         display: block;
         color: #ccc;
         font-size: 1.8rem;
-        transition: all 0.2s;
+        transition: transform 0.3s;
         transform: translateY(-4rem);
 
         &.labelActive {
@@ -29,6 +29,10 @@
             & + .label {
                 color: #26a69a;
                 transform: translateY(-6rem);
+            }
+
+            & + .label.labelError {
+                color: #ff7730;
             }
         }
 

@@ -4,7 +4,7 @@ import { SurveyField } from './SurverField/SurveyField';
 import * as yup from 'yup';
 import { Button } from 'my-react-story';
 import * as styles from './SurveyForm.css';
-import { Link } from 'react-router-dom';
+import { RouterButton } from 'my-react-story';
 
 const fields: { name: string; label: string; value: string }[] = [
     {
@@ -42,9 +42,7 @@ const SurveyInnerForm: React.SFC<FormikProps<SurveyFormValue>> = (props: FormikP
     return (
         <Form className={styles.surveyForm}>
             {fieldsEl}
-            <Link to="/dashboard" className={[styles.button, styles.cancel].join(' ')}>
-                Cancel
-            </Link>
+            <RouterButton text="Cancel" className={[styles.button, styles.cancel].join(' ')} to="/dashboard" />
             <Button
                 className={[styles.button, styles.submit].join(' ')}
                 text="Next"
@@ -64,7 +62,10 @@ export const SurveyForm = withFormik<SurveyFormProps, SurveyFormValue>({
         return values;
     },
     validationSchema: yup.object().shape({
-        title: yup.string().required('this field is required')
+        title: yup.string().required('this field is required'),
+        subject: yup.string().required('this field is required'),
+        emailBody: yup.string().required('this field is required'),
+        recipients: yup.string().required('this field is required')
     }),
     handleSubmit: (values: SurveyFormValue, { setSubmitting }) => {
         // tslint:disable-next-line:no-console

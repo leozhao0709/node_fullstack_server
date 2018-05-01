@@ -4,7 +4,7 @@
     display: block;
     color: #ccc;
     font-size: 1.8rem;
-    transition: all 0.2s;
+    transition: transform 0.3s;
     transform: translateY(-4rem); }
     .SurveyField .label.labelActive {
       transform: translateY(-6rem); }
@@ -22,6 +22,8 @@
       .SurveyField .input:focus + .label {
         color: #26a69a;
         transform: translateY(-6rem); }
+      .SurveyField .input:focus + .label.labelError {
+        color: #ff7730; }
     .SurveyField .input.inputError {
       border-bottom: 1px solid #ff7730;
       box-shadow: 0 1px 0 0 #ff7730; }

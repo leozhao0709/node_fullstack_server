@@ -12,8 +12,9 @@ export const SurveyField: React.SFC<SurveyFieldProps> = ({ field, form: { touche
     if (field.value) {
         labelClasses = [...labelClasses, styles.labelActive];
     }
-    if (errors && errors[field.name]) {
+    if (touched[field.name] && errors[field.name]) {
         inputClasses = [...inputClasses, styles.inputError];
+        labelClasses = [...labelClasses, styles.labelError];
     }
     return (
         <div className={styles.surveyField}>
@@ -21,7 +22,7 @@ export const SurveyField: React.SFC<SurveyFieldProps> = ({ field, form: { touche
             <label className={labelClasses.join(' ')} htmlFor={props.label}>
                 {props.label}
             </label>
-            {errors && errors[field.name] && <p className={styles.error}>{errors[field.name]}</p>}
+            {touched[field.name] && errors[field.name] && <p className={styles.error}>{errors[field.name]}</p>}
         </div>
     );
 };
