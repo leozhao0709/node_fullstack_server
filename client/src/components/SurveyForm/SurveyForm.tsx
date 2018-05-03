@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { FormikProps, Form, Field, withFormik } from 'formik';
-import { SurveyField } from './SurverField/SurveyField';
+import { FormikProps, Form, Field, withFormik, FieldArray } from 'formik';
+import { SurveyField } from './SurveyField/SurveyField';
 import * as yup from 'yup';
 import { Button } from 'my-react-story';
 import * as styles from './SurveyForm.css';
 import { RouterButton } from 'my-react-story';
+import { SurveyFieldArray } from './SurveyFieldArray/SurveyFieldArray';
 
-const fields: { name: string; label: string; value: string }[] = [
+const fields: { name: string; label: string; value: string | string[] }[] = [
     {
         name: 'title',
         label: 'Campaign Title',
@@ -25,7 +26,7 @@ const fields: { name: string; label: string; value: string }[] = [
     {
         name: 'recipients',
         label: 'Recipient List',
-        value: ''
+        value: []
     }
 ];
 
@@ -35,9 +36,31 @@ interface SurveyFormValue {}
 
 const SurveyInnerForm: React.SFC<FormikProps<SurveyFormValue>> = (props: FormikProps<SurveyFormValue>) => {
     const { isSubmitting } = props;
-    const fieldsEl = fields.map(field => (
-        <Field key={field.label} name={field.name} label={field.label} component={SurveyField} />
-    ));
+
+    // input field
+    const fieldsEl = fields.map(field => {
+        return (
+            (typeof field.value === 'string' && (
+                <Field key={field.label} name={field.name} label={field.label} component={SurveyField} />
+            )) ||
+            (Array.isArray(field.value) && (
+                <FieldArray
+                    key={field.label}
+                    name={field.name}
+                    render={fieldArrayProps => {
+                        return (
+                            <SurveyFieldArray
+                                label={field.label}
+                                name={field.name}
+                                {...fieldArrayProps}
+                                value={field.value as string[]}
+                            />
+                        );
+                    }}
+                />
+            ))
+        );
+    });
 
     return (
         <Form className={styles.surveyForm}>

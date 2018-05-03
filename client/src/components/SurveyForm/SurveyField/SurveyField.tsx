@@ -6,7 +6,7 @@ interface SurveyFieldProps extends FieldProps {
     label: string;
 }
 
-export const SurveyField: React.SFC<SurveyFieldProps> = ({ field, form: { touched, errors }, ...props }) => {
+export const SurveyField: React.SFC<SurveyFieldProps> = ({ field, form: { values, touched, errors }, ...props }) => {
     let labelClasses = [styles.label];
     let inputClasses = [styles.input];
     if (field.value) {
