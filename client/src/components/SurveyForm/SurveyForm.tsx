@@ -26,7 +26,7 @@ const fields: { name: string; label: string; value: string | string[] }[] = [
     {
         name: 'recipients',
         label: 'Recipient List',
-        value: []
+        value: ['']
     }
 ];
 
@@ -37,7 +37,6 @@ interface SurveyFormValue {}
 const SurveyInnerForm: React.SFC<FormikProps<SurveyFormValue>> = (props: FormikProps<SurveyFormValue>) => {
     const { isSubmitting } = props;
 
-    // input field
     const fieldsEl = fields.map(field => {
         return (
             (typeof field.value === 'string' && (
@@ -48,14 +47,7 @@ const SurveyInnerForm: React.SFC<FormikProps<SurveyFormValue>> = (props: FormikP
                     key={field.label}
                     name={field.name}
                     render={fieldArrayProps => {
-                        return (
-                            <SurveyFieldArray
-                                label={field.label}
-                                name={field.name}
-                                {...fieldArrayProps}
-                                value={field.value as string[]}
-                            />
-                        );
+                        return <SurveyFieldArray label={field.label} name={field.name} {...fieldArrayProps} />;
                     }}
                 />
             ))
@@ -82,6 +74,8 @@ export const SurveyForm = withFormik<SurveyFormProps, SurveyFormValue>({
         fields.forEach(field => {
             values[field.name] = field.value;
         });
+        // tslint:disable-next-line:no-console
+        console.log(values);
         return values;
     },
     validationSchema: yup.object().shape({

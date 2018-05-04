@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ArrayHelpers, FormikProps, Field } from 'formik';
-import { AddButton } from 'my-react-story';
+import { AddButton, MinusButton } from 'my-react-story';
+import * as styles from './SurveyFieldArray.css';
 
 interface FieldArrayProps extends ArrayHelpers {
     form: FormikProps<any>;
@@ -9,21 +10,31 @@ interface FieldArrayProps extends ArrayHelpers {
 
 interface SurveyFieldArrayProps extends FieldArrayProps {
     label: string;
-    value: string[];
 }
 
 export const SurveyFieldArray: React.SFC<SurveyFieldArrayProps> = props => {
     return (
-        <div>
-            <label>{props.label}</label>
+        <div className={styles.surveyFieldArray}>
+            <label className={styles.label}>{props.label}</label>
             <AddButton
                 type="button"
-                onClick={e => {
-                    props.push('aaa');
+                onClick={() => {
+                    props.push('');
                 }}
+                className={styles.addButton}
             />
-            {props.form.values[props.name].map((element, index) => (
-                <Field key={`${props.name}${index}`} name={`${props.name}${index}`} />
+            <br />
+            {props.form.values[props.name].map((value, index) => (
+                <div className={styles.inputField} key={`${props.name}${index}`}>
+                    <Field name={`${props.name}.${index}`} className={styles.input} />
+                    <MinusButton
+                        type="button"
+                        className={styles.minusButton}
+                        onClick={() => {
+                            props.remove(index);
+                        }}
+                    />
+                </div>
             ))}
         </div>
     );
