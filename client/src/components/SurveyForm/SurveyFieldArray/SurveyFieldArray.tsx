@@ -24,18 +24,40 @@ export const SurveyFieldArray: React.SFC<SurveyFieldArrayProps> = props => {
                 className={styles.addButton}
             />
             <br />
-            {props.form.values[props.name].map((value, index) => (
-                <div className={styles.inputField} key={`${props.name}${index}`}>
-                    <Field name={`${props.name}.${index}`} className={styles.input} />
-                    <MinusButton
-                        type="button"
-                        className={styles.minusButton}
-                        onClick={() => {
-                            props.remove(index);
-                        }}
-                    />
-                </div>
-            ))}
+            {props.form.errors[props.name] &&
+                !Array.isArray(props.form.errors[props.name]) && (
+                    <p className={styles.error}>{props.form.errors[props.name]}</p>
+                )}
+            {props.form.values[props.name].map((value, index) => {
+                let inputClass = [styles.input];
+
+                if (
+                    Array.isArray(props.form.touched[props.name]) &&
+                    props.form.touched[props.name]![index] &&
+                    Array.isArray(props.form.errors[props.name]) &&
+                    props.form.errors[props.name][index]
+                ) {
+                    inputClass = [...inputClass, styles.inputError];
+                }
+
+                return (
+                    <div className={styles.inputField} key={`${props.name}${index}`}>
+                        <Field name={`${props.name}.${index}`} className={inputClass.join(' ')} />
+                        <MinusButton
+                            type="button"
+                            className={styles.minusButton}
+                            onClick={() => {
+                                props.remove(index);
+                            }}
+                        />
+                        {Array.isArray(props.form.touched[props.name]) &&
+                            props.form.touched[props.name]![index] &&
+                            Array.isArray(props.form.errors[props.name]) && (
+                                <p className={styles.error}>{props.form.errors[props.name][index]}</p>
+                            )}
+                    </div>
+                );
+            })}
         </div>
     );
 };

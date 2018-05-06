@@ -1,0 +1,42 @@
+.surveyReview {
+    .title {
+        font-size: 5rem;
+    }
+
+    .fields {
+        padding: 1rem 0;
+        font-size: 2rem;
+
+        .label {
+            display: block;
+            color: #ccc;
+            font-size: 1.8rem;
+        }
+    }
+
+    .buttonGroup {
+        margin-top: 5rem;
+
+        .cancelButton {
+            background-color: #f49f20;
+            color: #fff;
+            float: left;
+            padding: 1.5rem 3.5rem;
+
+            &:hover {
+                background-color: lighten($color: #f49f20, $amount: 5%);
+            }
+        }
+
+        .sendSurveyButton {
+            background-color: #4ba447;
+            color: #fff;
+            float: right;
+            padding: 1.5rem 1.5rem;
+
+            &:hover {
+                background-color: lighten($color: #4ba447, $amount: 5%);
+            }
+        }
+    }
+}

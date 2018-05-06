@@ -7,42 +7,45 @@ import * as styles from './SurveyForm.css';
 import { RouterButton } from 'my-react-story';
 import { SurveyFieldArray } from './SurveyFieldArray/SurveyFieldArray';
 
-const fields: { name: string; label: string; value: string | string[] }[] = [
+export const surveyFields: { name: string; label: string; defaultValue: string | string[] }[] = [
     {
         name: 'title',
         label: 'Campaign Title',
-        value: ''
+        defaultValue: ''
     },
     {
         name: 'subject',
         label: 'Subject Line',
-        value: ''
+        defaultValue: ''
     },
     {
         name: 'emailBody',
         label: 'Email Body',
-        value: ''
+        defaultValue: ''
     },
     {
         name: 'recipients',
         label: 'Recipient List',
-        value: ['']
+        defaultValue: ['']
     }
 ];
 
-interface SurveyFormProps extends React.HtmlHTMLAttributes<{}> {}
-
-interface SurveyFormValue {}
+export interface SurveyFormValue {
+    title: string;
+    subject: string;
+    emailBody: string;
+    recipients: string[];
+}
 
 const SurveyInnerForm: React.SFC<FormikProps<SurveyFormValue>> = (props: FormikProps<SurveyFormValue>) => {
     const { isSubmitting } = props;
 
-    const fieldsEl = fields.map(field => {
+    const fieldsEl = surveyFields.map(field => {
         return (
-            (typeof field.value === 'string' && (
+            (typeof props.values[field.name] === 'string' && (
                 <Field key={field.label} name={field.name} label={field.label} component={SurveyField} />
             )) ||
-            (Array.isArray(field.value) && (
+            (Array.isArray(props.values[field.name]) && (
                 <FieldArray
                     key={field.label}
                     name={field.name}
@@ -68,25 +71,34 @@ const SurveyInnerForm: React.SFC<FormikProps<SurveyFormValue>> = (props: FormikP
     );
 };
 
+interface SurveyFormProps extends React.FormHTMLAttributes<{}> {
+    onFormSubmit: (values) => void;
+    values?: SurveyFormValue;
+}
+
 export const SurveyForm = withFormik<SurveyFormProps, SurveyFormValue>({
     mapPropsToValues: props => {
         let values = {};
-        fields.forEach(field => {
-            values[field.name] = field.value;
+        surveyFields.forEach(field => {
+            values[field.name] = (props.values && props.values[field.name]) || field.defaultValue;
         });
-        // tslint:disable-next-line:no-console
-        console.log(values);
-        return values;
+        return values as SurveyFormValue;
     },
     validationSchema: yup.object().shape({
         title: yup.string().required('this field is required'),
         subject: yup.string().required('this field is required'),
         emailBody: yup.string().required('this field is required'),
-        recipients: yup.string().required('this field is required')
+        recipients: yup
+            .array(
+                yup
+                    .string()
+                    .required('must be an email')
+                    .email('must be an email')
+            )
+            .required('must have at least one recipient')
     }),
-    handleSubmit: (values: SurveyFormValue, { setSubmitting }) => {
-        // tslint:disable-next-line:no-console
-        console.log(values);
+    handleSubmit: (values: SurveyFormValue, { props, setSubmitting }) => {
         setSubmitting(false);
+        props.onFormSubmit(values);
     }
 })(SurveyInnerForm);

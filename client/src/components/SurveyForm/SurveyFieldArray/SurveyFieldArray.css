@@ -1,5 +1,6 @@
 .SurveyFieldArray {
-  padding: 2rem 0 5rem; }
+  padding: 2rem 0 5rem;
+  vertical-align: middle; }
   .SurveyFieldArray .label {
     display: inline-block;
     color: #ccc;
@@ -13,15 +14,26 @@
     width: 30%;
     height: 4rem;
     margin-top: 4rem;
-    position: relative; }
+    position: relative;
+    vertical-align: top; }
     .SurveyFieldArray .inputField .input {
       border: none;
       border-bottom: 1px solid #ccc;
       font-size: 2rem;
       width: 80%; }
+      .SurveyFieldArray .inputField .input:focus {
+        border-bottom: 1px solid #26a69a;
+        box-shadow: 0 1px 0 0 #26a69a; }
+      .SurveyFieldArray .inputField .input.inputError {
+        display: inline-block;
+        border-bottom: 1px solid #ff7730;
+        box-shadow: 0 1px 0 0 #ff7730; }
     .SurveyFieldArray .inputField .minusButton {
       padding: 1.5rem;
       margin: 0 1rem;
       position: absolute;
       right: 15%;
       bottom: 2rem; }
+  .SurveyFieldArray .error {
+    color: #ff7730;
+    font-size: 1.8rem; }

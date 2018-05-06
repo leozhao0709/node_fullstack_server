@@ -6,7 +6,6 @@ export enum UserActionType {
 
 export interface UserAction {
     type: UserActionType;
-    // user?: { _id: string, email: string, credits: number } | null;
     // tslint:disable-next-line:no-any
     payload?: any;
 }
@@ -21,7 +20,7 @@ export const userActions = {
     fetch_user_finish: (user): UserAction => {
         return {
             type: UserActionType.FETCH_USER_FINISH,
-            payload: user,
+            payload: user
         };
     },
 
