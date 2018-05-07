@@ -19,7 +19,7 @@ export const surveyFields: { name: string; label: string; defaultValue: string |
         defaultValue: ''
     },
     {
-        name: 'emailBody',
+        name: 'body',
         label: 'Email Body',
         defaultValue: ''
     },
@@ -33,7 +33,7 @@ export const surveyFields: { name: string; label: string; defaultValue: string |
 export interface SurveyFormValue {
     title: string;
     subject: string;
-    emailBody: string;
+    body: string;
     recipients: string[];
 }
 
@@ -87,7 +87,7 @@ export const SurveyForm = withFormik<SurveyFormProps, SurveyFormValue>({
     validationSchema: yup.object().shape({
         title: yup.string().required('this field is required'),
         subject: yup.string().required('this field is required'),
-        emailBody: yup.string().required('this field is required'),
+        body: yup.string().required('this field is required'),
         recipients: yup
             .array(
                 yup

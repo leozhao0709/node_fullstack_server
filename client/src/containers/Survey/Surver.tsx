@@ -2,16 +2,22 @@ import * as React from 'react';
 import { SurveyForm, SurveyFormValue } from '../../components/SurveyForm/SurveyForm';
 import * as styles from './Survey.css';
 import { SurveyFormReview } from '../../components/SurveyForm/SurveyFormReview/SurveyFormReview';
+import { Dispatch, connect } from 'react-redux';
+import { StoreState } from '../../store/store';
+import { SurveyActions } from '../../store/actions/surveyActions';
+import { RouterProps } from 'react-router';
 
-interface SurveyProps {}
+interface SurveyProps extends RouterProps {}
+
+interface SurveyDispatchProps {
+    sendSurvey: (values) => void;
+}
 
 interface SurveyState {
     showSurveyReview: boolean;
 }
 
-class Survey extends React.Component<SurveyProps, SurveyState> {
-    static defaultProps: SurveyProps = {};
-
+class Survey extends React.Component<SurveyProps & SurveyDispatchProps, SurveyState> {
     state: SurveyState = {
         showSurveyReview: false
     };
@@ -24,8 +30,8 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
     };
 
     onSendSurvey = () => {
-        // tslint:disable-next-line:no-console
-        console.log(this._values);
+        this.props.sendSurvey(this._values);
+        this.props.history.replace('/dashboard');
     };
 
     render() {
@@ -46,4 +52,10 @@ class Survey extends React.Component<SurveyProps, SurveyState> {
     }
 }
 
-export default Survey;
+const mapDispatchToProps = (dispatch: Dispatch<StoreState>): SurveyDispatchProps => {
+    return {
+        sendSurvey: values => dispatch(SurveyActions.sendSurvey(values))
+    };
+};
+
+export default connect(null, mapDispatchToProps)(Survey);
