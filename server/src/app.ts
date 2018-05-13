@@ -14,11 +14,13 @@ export const app = express();
 
 app.use(bodyParser.json());
 
-app.use(cookieSession({
-    name: 'session',
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [environment.COOKIE_KEY]
-}));
+app.use(
+    cookieSession({
+        name: 'session',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        keys: [environment.COOKIE_KEY]
+    })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
